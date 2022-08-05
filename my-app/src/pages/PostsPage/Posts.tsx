@@ -1,6 +1,6 @@
 import React, { useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/hook";
-import { fetchPosts } from "../../store/postsSlice";
+import { fetchPosts, removePost } from "../../store/postsSlice";
 import { useEffect, useState, } from "react";
 import axios, {AxiosResponse} from 'axios'
 import Box from '@mui/material/Box';
@@ -38,7 +38,7 @@ export const Posts: React.FC<{}> = props => {
                             return (
                                 <Grid key={item.id} item xs={3}>
                                     <Card sx={{ minWidth: 275, height: 250 }}>
-                                        <CardContent>
+                                        <CardContent style={{position: 'relative'}}>
                                                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                                 {item.id}
                                                 </Typography>
@@ -49,6 +49,9 @@ export const Posts: React.FC<{}> = props => {
                                                 {item.body}
                                                 <br />
                                                 </Typography>
+                                                <button 
+                                                    style={{position: 'absolute', top: '10px', right: '10px'}}
+                                                    onClick={() => dispatch(removePost(item.id))}> ✕ </button>
                                         </CardContent>
                                     </Card>
                                 </Grid>
