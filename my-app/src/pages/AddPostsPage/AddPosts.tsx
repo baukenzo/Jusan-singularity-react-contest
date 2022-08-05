@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, useState } from "react";
 import { styled } from '@mui/material/styles';
+import type {FormEvent} from 'react';
 
 interface IPosts {};
 
@@ -47,29 +48,39 @@ type Forms = {
 
 
 export const AddPosts: React.FC<IPosts> = props => {
-    const [id, setid] = useState<number>(101);
+    const [id, setId] = useState<number>(101);
     const [title, setTitle] = useState<string>('');
     const [body, setBody] = useState<string>('');
 
-    const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    const onSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        setId(id + 1)
         let formik: Forms = {
             id,
             title,
             body
         }
-    
         console.log(formik)
+        setTitle('')
+        setBody('')
     }
 
-    console.log(title, body)
+    const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        setTitle(event.target.value)
+    }
+    const handleBodyChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
+        setBody(event.target.value)
+    }
+    
     return (
         <div>
-            <Form>
-                <FormInner>
-                    <Input type='text' placeholder="Title" value={title} onChange={(e) => setTitle(e.target.value)}/>
-                    <TextArea placeholder="your text..." rows={3} value={body} onChange={(e) => setBody(e.target.value)}/>
-                    <Input type="submit" value="Submit"/>
+            <Form onSubmit={event => {
+                    onSubmit(event)
+                }}>
+                <FormInner >
+                    <Input type='text' placeholder="Title" value={title} onChange={handleTitleChange}/>
+                    <TextArea placeholder="your text..." rows={3} value={body} onChange={handleBodyChange}/>
+                    <Input disabled={!body || !title} type="submit" value="Submit"/>
                 </FormInner>
             </Form>
         </div>
