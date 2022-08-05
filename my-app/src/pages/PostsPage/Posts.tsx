@@ -31,15 +31,15 @@ export const Posts: React.FC<{}> = props => {
     //         })
     // }, [])
     return (
-        <div>
+        <div style={{padding: '15px', position: 'relative'}}>
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={2}>
                     {posts && posts.map(item => {
                             return (
-                                <Grid key={item.id} item xs={3}>
+                                <Grid key={item.id} item xs={12} md={3} sm={5}>
                                     <Card sx={{ minWidth: 275, height: 250 }}>
                                         <CardContent style={{position: 'relative'}}>
-                                                <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
+                                                <Typography sx={{ fontSize: 12 }} color="text.secondary" gutterBottom>
                                                 {item.id}
                                                 </Typography>
                                                 <Typography variant="h5" component="div">
@@ -60,6 +60,10 @@ export const Posts: React.FC<{}> = props => {
                     }
                 </Grid>
             </Box>
+            <button 
+            style={{position: 'fixed', bottom: '25px', right: '25px', fontSize: '25px', height: '45px', width: '40px', backgroundColor:'dimgray', textAlign: 'center', color: 'white', cursor: 'pointer'}}
+            onClick={() => window.scrollTo(0, 9200)}
+            >{'↓'}</button>
         </div>
     )
 }

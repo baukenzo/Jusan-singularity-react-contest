@@ -70,7 +70,6 @@ export const AddPosts: React.FC<IPosts> = props => {
         setBody('')
         alert('Post added to the bottom of the list successfully. check')
     }
-
     const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
         setTitle(event.target.value)
     }
@@ -80,9 +79,7 @@ export const AddPosts: React.FC<IPosts> = props => {
 
     return (
         <div>
-            <Form onSubmit={event => {
-                    onSubmit(event)
-                }}>
+            <Form onSubmit={event => onSubmit(event)}>
                 <FormInner >
                     <Input type='text' placeholder="Title" value={title} onChange={handleTitleChange}/>
                     <TextArea placeholder="your text..." rows={3} value={body} onChange={handleBodyChange}/>
