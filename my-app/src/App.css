@@ -3,4 +3,14 @@ body {
   padding: 0;
 }
 
+header a {
+  margin: 5px;
+  font-size: 25px;
+  text-decoration: none;
+}
+header a.active {
+  font-weight: bold;
+  color: brown;
+}
+
 

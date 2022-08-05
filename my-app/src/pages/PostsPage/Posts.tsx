@@ -1,11 +1,14 @@
 import React from "react";
-import { useEffect, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/hook";
+import { fetchPosts } from "../../store/postsSlice";
+import { useEffect, useState, } from "react";
 import axios, {AxiosResponse} from 'axios'
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+
 
 interface IPosts {
     id: number
@@ -16,12 +19,14 @@ interface IPosts {
 
 
 export const Posts: React.FC<{}> = props => {
-    const [posts, setPosts] = useState<IPosts[]>([])
+    const posts = useAppSelector(state => state.posts.list)
+
+    const dispatch = useAppDispatch();
 
     useEffect(() => {
         axios.get(`https://jsonplaceholder.typicode.com/posts/`)
             .then((response: AxiosResponse) => {
-                setPosts(response.data)
+                dispatch(fetchPosts(response.data))
                 console.log('responsing', response.data)
             })
     }, [])
@@ -29,10 +34,10 @@ export const Posts: React.FC<{}> = props => {
         <div>
             <Box sx={{ flexGrow: 1 }}>
                 <Grid container spacing={2}>
-                    { posts.map(item => {
+                    {posts && posts.map(item => {
                             return (
-                                <Grid item xs={3}>
-                                    <Card sx={{ minWidth: 275 }}>
+                                <Grid key={item.id} item xs={3}>
+                                    <Card sx={{ minWidth: 275, height: 250 }}>
                                         <CardContent>
                                                 <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
                                                 {item.id}

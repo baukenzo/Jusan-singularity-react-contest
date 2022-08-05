@@ -1,4 +1,6 @@
 import React, { ChangeEvent, useState } from "react";
+import { useAppDispatch, useAppSelector } from "../../hooks/hook";
+import { addPost } from "../../store/postsSlice";
 import { styled } from '@mui/material/styles';
 import type {FormEvent} from 'react';
 
@@ -52,6 +54,8 @@ export const AddPosts: React.FC<IPosts> = props => {
     const [title, setTitle] = useState<string>('');
     const [body, setBody] = useState<string>('');
 
+    const dispatch = useAppDispatch();
+
     const onSubmit = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         setId(id + 1)
@@ -60,6 +64,7 @@ export const AddPosts: React.FC<IPosts> = props => {
             title,
             body
         }
+        dispatch(addPost(formik))
         console.log(formik)
         setTitle('')
         setBody('')
@@ -71,7 +76,7 @@ export const AddPosts: React.FC<IPosts> = props => {
     const handleBodyChange = (event: ChangeEvent<HTMLTextAreaElement>) => {
         setBody(event.target.value)
     }
-    
+
     return (
         <div>
             <Form onSubmit={event => {
