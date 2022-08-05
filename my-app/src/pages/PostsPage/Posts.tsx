@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/hook";
 import { fetchPosts } from "../../store/postsSlice";
 import { useEffect, useState, } from "react";
@@ -17,19 +17,19 @@ interface IPosts {
 }
 
 
-
 export const Posts: React.FC<{}> = props => {
     const posts = useAppSelector(state => state.posts.list)
 
     const dispatch = useAppDispatch();
 
-    useEffect(() => {
-        axios.get(`https://jsonplaceholder.typicode.com/posts/`)
-            .then((response: AxiosResponse) => {
-                dispatch(fetchPosts(response.data))
-                console.log('responsing', response.data)
-            })
-    }, [])
+    /// пренос логики в другой компонент т.к каждый раз перезаписывался стейт при переходе по роутер дому
+    // useEffect(() => {
+    //     axios.get(`https://jsonplaceholder.typicode.com/posts/`)
+    //         .then((response: AxiosResponse) => {
+    //             dispatch(fetchPosts(response.data))
+    //             console.log('responsing', response.data)
+    //         })
+    // }, [])
     return (
         <div>
             <Box sx={{ flexGrow: 1 }}>

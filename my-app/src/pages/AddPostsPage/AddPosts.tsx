@@ -68,6 +68,7 @@ export const AddPosts: React.FC<IPosts> = props => {
         console.log(formik)
         setTitle('')
         setBody('')
+        alert('Post added to the bottom of the list successfully. check')
     }
 
     const handleTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
